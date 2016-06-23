@@ -8,7 +8,8 @@ class MotorControl:
 	dir_Y = 12 
 	end_X = 32
 	end_Y = 36
-	
+	laser = 29
+
 	GPIO.setwarnings(False)
 	GPIO.setmode(GPIO.BOARD)
 	GPIO.setmode(GPIO.BOARD)
@@ -17,9 +18,12 @@ class MotorControl:
 	GPIO.setup(step_Y,GPIO.OUT)
 	GPIO.setup(dir_X,GPIO.OUT)
         GPIO.setup(dir_Y,GPIO.OUT)
+	GPIO.setup(laser,GPIO.OUT)
 	GPIO.setup(end_X, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 	GPIO.setup(end_Y, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-	
+	l = GPTIO.PWM(laser,4096)
+	l.start(0)
+
 	def enableMotor(self,b):
 		if b:
 			GPIO.output(self.enable, False)
@@ -36,5 +40,10 @@ class MotorControl:
                 GPIO.output(self.step_Y,True)
                 GPIO.output(self.step_Y,False)
 	
-	def ba(self):
-		pass
+	def setlaser(self,pwm):
+		l.ChangeDutyCycle(pwm)
+
+	def off()
+		GPIO.output(self.enable, True)
+		l.stop()
+		#GPIO.cleanup()
