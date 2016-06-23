@@ -40,6 +40,12 @@ class MotorControl:
                 GPIO.output(self.step_Y,True)
                 GPIO.output(self.step_Y,False)
 	
+	def getEnd(self,a):
+		if a == "x":
+			return GPIO.input(end_X)
+		elif a == "y":
+			return GPIO.input(end_Y)
+	
 	def setlaser(self,pwm):
 		l.ChangeDutyCycle(pwm)
 
