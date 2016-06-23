@@ -21,7 +21,7 @@ class MotorControl:
 	GPIO.setup(laser,GPIO.OUT)
 	GPIO.setup(end_X, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 	GPIO.setup(end_Y, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-	l = GPIO.PWM(laser,4096)
+	l = GPIO.PWM(laser,100)
 	l.start(0)
 
 	def enableMotor(self,b):
