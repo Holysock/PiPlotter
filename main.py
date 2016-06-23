@@ -6,7 +6,7 @@ motor = motorcontrol.MotorControl()
 motor.enableMotor(0)
 
 gcode = open(sys.argv[1])
-buffer_length = 500
+buffer_length = 100
 buffer = []
 
 last_t = time.clock()
@@ -21,7 +21,7 @@ motor.enableMotor(1)
 
 def setFeedrate(feed):
         global t_per_step, feedrate
-	feedrate = feed
+	feedrate = 350 #feed
         t_per_step = 1/((feedrate*step_mm)/60)
 
 def step(x,y,dirx,diry):
@@ -106,6 +106,9 @@ def clearbuffer(buf):
 			step_line(stuff[0]*step_mm,stuff[1]*step_mm)
 
 home()
+if len(sys.argv) == 5:
+	step_line(float(sys.argv[3])*step_mm,float(sys.argv[4])*step_mm)
+	pos_x, pos_y = 0, 0
 
 for line in gcode:
 	new_x, new_y, new_z = -1, -1, -1
@@ -172,6 +175,11 @@ for line in gcode:
 		clearbuffer(buffer)
 		motor.setlaser(0)
 		del(buffer[:])
+
+if len(buffer) > 0:
+	clearbuffer(buffer)
+        motor.setlaser(0)
+        del(buffer[:])
 
 home()
 motor.setlaser(0)
