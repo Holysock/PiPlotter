@@ -49,7 +49,7 @@ class MotorControl:
 	def setlaser(self,pwm):
 		l.ChangeDutyCycle(pwm)
 
-	def off()
+	def off():
 		GPIO.output(self.enable, True)
 		l.stop()
 		#GPIO.cleanup()

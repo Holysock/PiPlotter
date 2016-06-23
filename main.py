@@ -17,7 +17,7 @@ motor.enableMotor(1)
 
 def setFeedrate(feed):
         global t_per_step, feedrate
-	#feedrate = feed
+	feedrate = feed
         t_per_step = 1/((feedrate*step_mm)/60)
 
 def step(x,y,dirx,diry):
@@ -46,6 +46,8 @@ def home():
 	setFeedrate(tmp)
 
 def step_line(x1, y1):
+	x1 = round(x1)
+	y1 = round(y1)
 	global pos_x, pos_y
 	x0 = pos_x
 	y0 = pos_y
@@ -137,7 +139,7 @@ for line in gcode:
                 else: z = 0
 
 		motor.setlaser((z*100)/255)
-		step_line(int(step_mm*x),int(step_mm*y))
+		step_line(step_mm*x,step_mm*y)
 		#print(x,y,z)
 		
 	elif "G01" in line or "G1" in line:
@@ -175,7 +177,7 @@ for line in gcode:
                         z = int(line[zi+1:i])
                 else: z = 0 
 		motor.setlaser((z*100)/255.0)
-		step_line(int(step_mm*x),int(step_mm*y))
+		step_line(step_mm*x,step_mm*y)
                 #print(x,y,z)
 
 motor.setlaser(0)
