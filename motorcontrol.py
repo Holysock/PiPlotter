@@ -36,3 +36,5 @@ class MotorControl:
                 GPIO.output(self.step_Y,True)
                 GPIO.output(self.step_Y,False)
 	
+	def ba(self):
+		pass
