@@ -6,14 +6,14 @@ motor = motorcontrol.MotorControl()
 motor.enableMotor(0)
 
 gcode = open(sys.argv[1])
-buffer_length = 100
+buffer_length = 5
 buffer = []
 
 last_t = time.clock()
 
-step_mm = 266.667
+step_mm = float(3200/3.0)
 feedrate = 350
-feedrate_max = 400
+feedrate_max = 450
 pos_x = 0
 pos_y = 0
 t_per_step = 1/((feedrate*step_mm)/60)
@@ -22,7 +22,7 @@ motor.enableMotor(1)
 
 def setFeedrate(feed):
         global t_per_step, feedrate
-	feedrate = feed
+	feedrate = feed if feed <= feedrate_max else feedrate_max
         t_per_step = 1/((feedrate*step_mm)/60)
 
 def step(x,y,dirx,diry):
@@ -128,8 +128,9 @@ def clearbuffer(buf):
 			home()
 
 home()
-if len(sys.argv) == 5:
-	step_line(float(sys.argv[3])*step_mm,float(sys.argv[4])*step_mm)
+if len(sys.argv) == 4:
+	print "hi"
+	gofast(float(sys.argv[2])*step_mm,float(sys.argv[3])*step_mm)
 	pos_x, pos_y = 0, 0
 
 for line in gcode:

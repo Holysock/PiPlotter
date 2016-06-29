@@ -51,5 +51,5 @@ class MotorControl:
 
 	def off(self):
 		GPIO.output(self.enable, True)
-		l.stop()
+		self.l.stop()
 		#GPIO.cleanup()
